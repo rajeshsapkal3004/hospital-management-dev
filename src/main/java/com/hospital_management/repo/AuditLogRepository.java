@@ -43,8 +43,17 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
     @Query("SELECT al FROM AuditLog al WHERE al.timestamp >= :date ORDER BY al.timestamp DESC")
     List<AuditLog> findRecentLogs(@Param("date") LocalDateTime date);
 
-    @Query("SELECT al FROM AuditLog al WHERE DATE(al.timestamp) = CURRENT_DATE ORDER BY al.timestamp DESC")
-    List<AuditLog> findTodaysLogs();
+    @Query("""
+  SELECT al FROM AuditLog al
+  WHERE al.timestamp >= :startOfDay
+    AND al.timestamp < :startOfNextDay
+  ORDER BY al.timestamp DESC
+""")
+    List<AuditLog> findTodaysLogs(
+            @Param("startOfDay") LocalDateTime startOfDay,
+            @Param("startOfNextDay") LocalDateTime startOfNextDay
+    );
+
 
     @Query("SELECT al FROM AuditLog al WHERE al.timestamp >= :startOfWeek AND al.timestamp < :endOfWeek ORDER BY al.timestamp DESC")
     List<AuditLog> findThisWeeksLogs(@Param("startOfWeek") LocalDateTime startOfWeek, @Param("endOfWeek") LocalDateTime endOfWeek);
