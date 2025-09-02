@@ -47,7 +47,7 @@ public interface AuditService {
 
     Map<String, Long> getSeverityStatistics(LocalDateTime startDate, LocalDateTime endDate);
 
-    List<Object[]> getDailyActivityStatistics(LocalDateTime startDate, LocalDateTime endDate);
+   // List<Object[]> getDailyActivityStatistics(LocalDateTime startDate, LocalDateTime endDate);
 
     // Cleanup
     void cleanupOldAuditLogs(int retentionDays);

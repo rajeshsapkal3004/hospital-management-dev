@@ -39,11 +39,11 @@ public interface LabTestRepository extends JpaRepository<LabTest, Long>, JpaSpec
             "ORDER BY lt.urgency DESC, lt.orderDate ASC")
     List<LabTest> findUrgentTests();
 
-    // Find tests scheduled for today
-    @Query("SELECT lt FROM LabTest lt WHERE DATE(lt.scheduledDate) = CURRENT_DATE " +
-            "AND lt.status IN ('SCHEDULED', 'ORDERED') " +
-            "ORDER BY lt.scheduledDate ASC")
-    List<LabTest> findTestsScheduledToday();
+//    // Find tests scheduled for today
+//    @Query("SELECT lt FROM LabTest lt WHERE DATE(lt.scheduledDate) = CURRENT_DATE " +
+//            "AND lt.status IN ('SCHEDULED', 'ORDERED') " +
+//            "ORDER BY lt.scheduledDate ASC")
+//    List<LabTest> findTestsScheduledToday();
 
     // Find overdue tests
     @Query("SELECT lt FROM LabTest lt WHERE lt.estimatedCompletionDate < :currentDateTime " +

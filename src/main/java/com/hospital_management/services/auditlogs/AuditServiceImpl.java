@@ -273,12 +273,12 @@ public class AuditServiceImpl implements AuditService {
         return statistics;
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Object[]> getDailyActivityStatistics(LocalDateTime startDate, LocalDateTime endDate) {
-        log.debug("Fetching daily activity statistics between {} and {}", startDate, endDate);
-        return auditLogRepository.getDailyActivityStatistics(startDate, endDate);
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<Object[]> getDailyActivityStatistics(LocalDateTime startDate, LocalDateTime endDate) {
+//        log.debug("Fetching daily activity statistics between {} and {}", startDate, endDate);
+//        return auditLogRepository.getDailyActivityStatistics(startDate, endDate);
+//    }
 
     @Override
     @Transactional

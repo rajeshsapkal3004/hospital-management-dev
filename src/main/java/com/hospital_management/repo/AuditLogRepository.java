@@ -194,8 +194,8 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
     @Query("SELECT al.ipAddress, COUNT(al) FROM AuditLog al WHERE al.timestamp BETWEEN :startDate AND :endDate AND al.ipAddress IS NOT NULL GROUP BY al.ipAddress ORDER BY COUNT(al) DESC")
     List<Object[]> getIpAddressStatistics(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
-    @Query("SELECT DATE(al.timestamp), COUNT(al) FROM AuditLog al WHERE al.timestamp BETWEEN :startDate AND :endDate GROUP BY DATE(al.timestamp) ORDER BY DATE(al.timestamp)")
-    List<Object[]> getDailyActivityStatistics(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+//    @Query("SELECT DATE(al.timestamp), COUNT(al) FROM AuditLog al WHERE al.timestamp BETWEEN :startDate AND :endDate GROUP BY DATE(al.timestamp) ORDER BY DATE(al.timestamp)")
+//    List<Object[]> getDailyActivityStatistics(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
     // Cleanup queries
     @Modifying

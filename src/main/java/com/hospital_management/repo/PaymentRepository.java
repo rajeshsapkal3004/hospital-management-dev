@@ -59,9 +59,9 @@ public interface PaymentRepository extends JpaRepository<Payment, Long>, JpaSpec
     List<Payment> findPendingPayments();
 
     // Calculate daily revenue
-    @Query("SELECT COALESCE(SUM(p.amount), 0) FROM Payment p " +
-            "WHERE DATE(p.paymentDate) = :date AND p.status = 'COMPLETED'")
-    BigDecimal calculateDailyRevenue(@Param("date") LocalDate date);
+//    @Query("SELECT COALESCE(SUM(p.amount), 0) FROM Payment p " +
+//            "WHERE DATE(p.paymentDate) = :date AND p.status = 'COMPLETED'")
+//    BigDecimal calculateDailyRevenue(@Param("date") LocalDate date);
 
     // Find refunded payments
     @Query("SELECT p FROM Payment p WHERE p.status = 'REFUNDED' " +
