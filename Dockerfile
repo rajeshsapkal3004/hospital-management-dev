@@ -1,12 +1,29 @@
-# Use a lightweight OpenJDK image
-FROM eclipse-temurin:17-jdk-alpine
+# Build stage
+FROM maven:3.9.0-eclipse-temurin-17-alpine AS build
+WORKDIR /app
 
-# Expose port 8080
+# Copy pom.xml and Maven wrapper for dependency caching
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+
+# Download dependencies (for better layer caching)
+RUN ./mvnw dependency:go-offline
+
+# Copy source code
+COPY src ./src
+
+# Build the application
+RUN ./mvnw clean package -DskipTests
+
+# Runtime stage
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+
+# Copy the built jar from build stage
+COPY --from=build /app/target/Hospital-Management-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose port
 EXPOSE 8080
 
-# Add the jar file to the container
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-
-# Run the app
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
