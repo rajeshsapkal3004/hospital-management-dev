@@ -197,9 +197,6 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
     @Query("SELECT DATE(al.timestamp), COUNT(al) FROM AuditLog al WHERE al.timestamp BETWEEN :startDate AND :endDate GROUP BY DATE(al.timestamp) ORDER BY DATE(al.timestamp)")
     List<Object[]> getDailyActivityStatistics(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
-    @Query("SELECT HOUR(al.timestamp), COUNT(al) FROM AuditLog al WHERE DATE(al.timestamp) = CURRENT_DATE GROUP BY HOUR(al.timestamp) ORDER BY HOUR(al.timestamp)")
-    List<Object[]> getHourlyActivityStatistics();
-
     // Cleanup queries
     @Modifying
     @Query("DELETE FROM AuditLog al WHERE al.timestamp < :date")
