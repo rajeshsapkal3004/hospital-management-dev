@@ -59,12 +59,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>,
                                                      @Param("startDate") LocalDateTime startDate,
                                                      @Param("endDate") LocalDateTime endDate);
 
-    // Find today's appointments for a doctor
-    @Query("SELECT a FROM Appointment a WHERE a.doctor.id = :doctorId " +
-            "AND DATE(a.appointmentDateTime) = CURRENT_DATE " +
-            "AND a.status NOT IN ('CANCELLED', 'NO_SHOW') " +
-            "ORDER BY a.appointmentDateTime ASC")
-    List<Appointment> findTodayAppointmentsForDoctor(@Param("doctorId") Long doctorId);
+//    // Find today's appointments for a doctor
+//    @Query("SELECT a FROM Appointment a WHERE a.doctor.id = :doctorId " +
+//            "AND DATE(a.appointmentDateTime) = CURRENT_DATE " +
+//            "AND a.status NOT IN ('CANCELLED', 'NO_SHOW') " +
+//            "ORDER BY a.appointmentDateTime ASC")
+//    List<Appointment> findTodayAppointmentsForDoctor(@Param("doctorId") Long doctorId);
 
     // Find overdue appointments (past scheduled time but not completed)
     @Query("SELECT a FROM Appointment a WHERE a.appointmentDateTime < :currentTime " +
