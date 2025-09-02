@@ -2,9 +2,10 @@
 FROM maven:3.9.0-eclipse-temurin-17-alpine AS build
 WORKDIR /app
 
-# Copy pom.xml and Maven wrapper for dependency caching
+# Copy Maven wrapper files and make the wrapper executable
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
+RUN chmod +x mvnw
 
 # Download dependencies (for better layer caching)
 RUN ./mvnw dependency:go-offline
